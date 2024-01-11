@@ -6,16 +6,14 @@
 	};
 </script>
 
-<div class="cards">
-	<div class="card-category">
+<div class="pokemon-card">
 		<p>#{pokemon.id}</p>
 		<img src={pokemon.sprites.front_default} alt={pokemon.name} />
 		<p>{pokemon.name}</p>
-	</div>
 </div>
 
 <style>
-	.card-category {
+	.pokemon-card {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;

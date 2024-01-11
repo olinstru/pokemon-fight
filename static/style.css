@@ -1,3 +1,9 @@
 * {
     font-family: "Martian Mono", monospace;
 }
+
+menu {
+    text-align: center;
+    padding: 30px;
+    background-color: lightgray;
+}

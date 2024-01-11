@@ -1,5 +1,4 @@
 export type FightersInSquad = {
-    name: any;
-    id: number;
+    name: string;
     uuid: string;
 } 

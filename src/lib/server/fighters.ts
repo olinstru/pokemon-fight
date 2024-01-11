@@ -24,7 +24,7 @@ export function readPokemonSquad() {
 }
 
 export function saveSquad() {
-    writeFileSync('./generated/bag.json', JSON.stringify(squad));
+    writeFileSync('./generated/squad.json', JSON.stringify(squad));
 }
 
 export function renamePokemon(uuid: string, newName: string) {

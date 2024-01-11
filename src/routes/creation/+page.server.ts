@@ -1,23 +1,23 @@
-import { readPokemonSquad, renamePokemon } from '$lib/server/fighters'
+import { addPokemonToSquad, readPokemonSquad, renamePokemon } from '$lib/server/fighters'
 import { fail } from '@sveltejs/kit';
+import { randomUUID } from "crypto";
+
 
 export function load({ depends }) {
-    depends("bag:all");
-    const bag = readPokemonSquad()
-    // console.log(bag)
-    return { bag }
+	depends("squad:all");
+	const squad = readPokemonSquad()
+	console.log(squad)
+	return { squad }
 }
 export const actions = {
 	default: async (event) => {
 		const data = await event.request.formData();
-		const name = data.get('name')?.toString();
-		console.log(name);
+		const name = data.get('pokemonName')?.toString();
+		const uuid = randomUUID();
 
-		const uuid = data.get('uuid')?.toString()
-		console.log(uuid);
-
-		if (name && uuid) {
-			renamePokemon(uuid, name)
+		console.log("pokemon name:", name)
+		if (name) {
+			addPokemonToSquad({name: name, uuid: uuid})
 		} else {
 			return fail(400, {
 				name, uuid, incorrect: true

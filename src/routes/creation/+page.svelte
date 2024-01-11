@@ -4,35 +4,31 @@
 	let selectedPokemon = '';
 
 	export let data;
-	export let form;
 	// $: squad = data.squad;
 
 	const handleSelectChange = (event) => {
 		selectedPokemon = event.target.value;
+		console.log(selectedPokemon);
 	};
 </script>
 
 <h1>Création de personnage</h1>
 
 <div class="container">
-	<form>
+	<form method="POST">
 		<select name="pokemons" id="pokemons" on:change={handleSelectChange}>
 			<option value="">Choose a pokemon</option>
 			{#each data.pokemons as pokemon}
 				<option value={pokemon.name}>{pokemon.name}</option>
 			{/each}
 		</select>
+		<div>
+			<h2>Selected pokemon: {selectedPokemon}</h2>
+
+			<input type="text" name="pokemonName" placeholder="type here" value={selectedPokemon} />
+			<button>Create</button>
+		</div>
 	</form>
-	<div>
-		<h2>Selected pokemon: {selectedPokemon}</h2>
-		<!-- <form method="post" use:enhance>
-			<input name="name" class:error={form?.uuid === uuid} />
-			<input type="hidden" name="uuid" value={uuid} />
-			<button>Renommer</button>
-		</form> -->
-		<input type="text" />
-		<button>Rename</button>
-	</div>
 </div>
 
 <style>

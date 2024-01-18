@@ -1,6 +1,4 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
-
 	let selectedId: number = 0;
 	let selectedName: string = '';
 
@@ -9,7 +7,7 @@
 
 	$: selectedPokemon = pokemons.find((pokemon) => pokemon.id === selectedId);
 
-	const handleSelectChange = (event) => {
+	const handleSelectChange = (event: any) => {
 		selectedId = +event.target.value; // Convert to number
 		selectedName = pokemons[selectedId - 1]?.name || '';
 		console.log(selectedName, selectedId);

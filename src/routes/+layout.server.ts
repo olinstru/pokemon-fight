@@ -7,6 +7,6 @@ export function load({ depends }) {
 
     return {
         pokemons,
-        bagSize: squad.length
+        squadSize: squad.length
     };
 }

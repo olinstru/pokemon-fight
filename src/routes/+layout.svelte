@@ -1,9 +1,14 @@
+<script>
+	export let data;
+	$: squadSize = data.squadSize;
+</script>
+
 <menu>
 	<nav>
-		<a href="/home">Accueil</a>
-		<a href="/creation">Création de personnage</a>
-		<a href="/list">Liste des combattants</a>
-		<a href="/combat">Combat</a>
+		<a href="/">Home</a>
+		<a href="/creation">Create a fighter</a>
+		<a href="/list">Fighters ({squadSize})</a>
+		<!-- <a href="/combat">Combat</a> -->
 	</nav>
 </menu>
 

@@ -34,3 +34,15 @@ export function renamePokemon(uuid: string, newName: string) {
         saveSquad();
     }
 }
+
+export function generateRandomPV() {
+    const minPV = 50;
+    const maxPV = 200;
+    return Math.floor(Math.random() * (maxPV - minPV + 1)) + minPV;
+}
+
+export function generateRandomForce() {
+    const minForce = 20;
+    const maxForce = 50;
+    return Math.floor(Math.random() * (maxForce - minForce + 1)) + minForce;
+}

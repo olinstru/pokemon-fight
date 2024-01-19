@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { FightersInSquad } from '$lib/types';
-
 	export let fighter: FightersInSquad;
 </script>
 

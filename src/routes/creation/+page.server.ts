@@ -17,18 +17,24 @@ export function load({ depends }) {
 export const actions = {
 	default: async (event) => {
 		const data = await event.request.formData();
-		console.log(data);
 		const name = data.get('pokemonName')?.toString();
 		const id = Number(data.get('pokemonId'));
 		const uuid = randomUUID();
 		const pv = generateRandomPV();
 		const force = generateRandomForce();
 		const points = 0;
-		const img = getPokemonData(id)
-		console.log(img)
+		const img = getPokemonData(id);
 
 		if (name) {
-			addPokemonToSquad({ name: name, id: id, uuid: uuid, pv: pv, force: force, points: points, img: img });
+			addPokemonToSquad({
+				name: name,
+				id: id,
+				uuid: uuid,
+				pv: pv,
+				force: force,
+				points: points,
+				img: img
+			});
 		} else {
 			return fail(400, {
 				name,

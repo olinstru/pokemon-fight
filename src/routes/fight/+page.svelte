@@ -1,8 +1,22 @@
-<script>
+<script lang="ts">
+	import Fighter from '$lib/components/Fighter.svelte';
+
 	export let data;
-	$: fighter1 = data.uuid1;
-	$: fighter2 = data.uuid2;
+	const fighter1 = data.pokemonFighter1;
+	const fighter2 = data.pokemonFighter2;
+	const pokemonFighters = [fighter1, fighter2]
 </script>
 
-<p>UUID1: {fighter1}</p>
-<p>UUID2: {fighter2}</p>
+<div class="squad">
+	{#each pokemonFighters as fighter}
+		<Fighter {fighter} />
+	{/each}
+</div>
+
+<style>
+.squad {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-gap: 40px;
+	}
+</style>

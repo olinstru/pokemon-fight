@@ -12,14 +12,19 @@
 		return Math.floor(Math.random() * (fighterForce - minForce + 1)) + minForce;
 	}
 
+	let winner: any;
+
 	onMount(() => {
 		const intervalId = setInterval(() => {
 			let fighter1Force = randomFighterForce(fighter1.force);
 			if (fighter2.pv >= fighter1Force) {
 				fighter2.pv -= fighter1Force;
 			} else {
-				console.log('Le combat est terminé. Fighter 2 a perdu.');
+				console.log('Le combat est terminé. Fighter 1 a gagné.');
 				fighter2.pv = 0;
+				winner = fighter1.name;
+				console.log('winner:', winner);
+
 				clearInterval(intervalId);
 				return;
 			}
@@ -28,16 +33,25 @@
 			if (fighter1.pv >= fighter2Force) {
 				fighter1.pv -= fighter2Force;
 			} else {
-				console.log('Le combat est terminé. Fighter 1 a perdu.');
+				console.log('Le combat est terminé. Fighter 2 a gagné.');
 				fighter1.pv = 0;
+				winner = fighter2.name;
+				console.log('winner:', winner);
+
 				clearInterval(intervalId);
 				return;
 			}
-		}, 2000);
+		}, 200);
 	});
 </script>
 
-<h1>Fight between {fighter1.name} & {fighter2.name}!</h1>
+<h1 class="title">
+	{#if !winner}
+		Fight between {fighter1.name} & {fighter2.name}!
+	{:else}
+		The winner is {winner}!
+	{/if}
+</h1>
 
 <div class="squad">
 	{#each pokemonFighters as fighter}

@@ -51,9 +51,3 @@ export function generateRandomForce() {
 	const maxForce = 50;
 	return Math.floor(Math.random() * (maxForce - minForce + 1)) + minForce;
 }
-
-export function randomFighterForce(fighterForce: number) {
-	const minForce: number = 0;
-	return Math.floor(Math.random() * (fighterForce - minForce + 1)) + minForce;
-}
-

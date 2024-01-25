@@ -3,19 +3,38 @@
 	import { onMount } from 'svelte';
 
 	export let data;
-	const fighter1: any = data.pokemonFighter1;
-	const fighter2: any = data.pokemonFighter2;
-	const pokemonFighters = [fighter1, fighter2];
-	const fighter1Force = data.fighter1Force;
-	const fighter2Force = data.fighter2Force;
-	console.log(pokemonFighters, fighter1Force, fighter2Force);
+	$: fighter1 = data.pokemonFighter1;
+	$: fighter2 = data.pokemonFighter2;
+	$: pokemonFighters = [fighter1, fighter2];
 
-	// onMount(() => {
-	// 	setInterval(() => {}, 2000);
-	// });
+	function randomFighterForce(fighterForce: number) {
+		const minForce: number = 0;
+		return Math.floor(Math.random() * (fighterForce - minForce + 1)) + minForce;
+	}
 
-	console.log(fighter1.pv);
-	console.log(fighter2.pv);
+	onMount(() => {
+		const intervalId = setInterval(() => {
+			let fighter1Force = randomFighterForce(fighter1.force);
+			if (fighter2.pv >= fighter1Force) {
+				fighter2.pv -= fighter1Force;
+			} else {
+				console.log('Le combat est terminé. Fighter 2 a perdu.');
+				fighter2.pv = 0;
+				clearInterval(intervalId);
+				return;
+			}
+
+			let fighter2Force = randomFighterForce(fighter2.force);
+			if (fighter1.pv >= fighter2Force) {
+				fighter1.pv -= fighter2Force;
+			} else {
+				console.log('Le combat est terminé. Fighter 1 a perdu.');
+				fighter1.pv = 0;
+				clearInterval(intervalId);
+				return;
+			}
+		}, 2000);
+	});
 </script>
 
 <h1>Fight between {fighter1.name} & {fighter2.name}!</h1>

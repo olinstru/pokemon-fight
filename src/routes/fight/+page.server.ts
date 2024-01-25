@@ -1,5 +1,6 @@
-import { readPokemonSquad, randomFighterForce } from '$lib/server/fighters.js';
-import { getFighterData } from '$lib/server/fighters.js';
+import { readPokemonSquad } from '$lib/server/fighters';
+import { getFighterData } from '$lib/server/fighters';
+import { redirect } from '@sveltejs/kit';
 
 export function load({ url }) {
 	const uuid1 = url.searchParams.get('uuid1');
@@ -9,16 +10,15 @@ export function load({ url }) {
 	const pokemonFighter1 = getFighterData(uuid1);
 	const pokemonFighter2 = getFighterData(uuid2);
 
-	const fighter1Force = randomFighterForce(pokemonFighter1.force);
-	const fighter2Force = randomFighterForce(pokemonFighter2.force);
+	if (!pokemonFighter1 || !pokemonFighter2) {
+		throw redirect(300, '/');
+	}
 
 	return {
 		uuid1,
 		uuid2,
 		squad,
 		pokemonFighter1,
-		pokemonFighter2,
-		fighter1Force,
-		fighter2Force
+		pokemonFighter2
 	};
 }

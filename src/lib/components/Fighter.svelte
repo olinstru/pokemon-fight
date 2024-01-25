@@ -13,6 +13,7 @@
 
 <style>
 	.fighter-card {
+		width: 500px;
 		text-align: center;
 		color: black;
 		font-weight: bold;

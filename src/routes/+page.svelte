@@ -70,11 +70,11 @@
 	.startFightLink {
 		margin-left: 40px;
 		font-weight: bold;
-		font-size:1.2rem;
+		font-size: 1.2rem;
 	}
 
 	.selected {
-		background-color: lightgoldenrodyellow;
-		border-radius: 10px; /* Adjust the color as needed */
+		background-color: lightgoldenrodyellow; /* Change the border color and width as needed */
+		border-radius: 10px;
 	}
 </style>

@@ -1,8 +1,6 @@
 import { readPokemonSquad } from '$lib/server/fighters';
 
-export function load({ depends }) {
-	depends('squad:all');
+export function load() {
 	const squad = readPokemonSquad();
-	console.log(squad);
 	return { squad };
 }

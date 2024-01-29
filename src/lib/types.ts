@@ -9,7 +9,7 @@ export type FightersInSquad = {
 };
 
 export type Leaderboard = {
-	winner: string;
-	uuid1: string;
-	uuid2: string;
+	winnerName: string;
+	winnerUUID: string;
+	loserUUID: string;
 };

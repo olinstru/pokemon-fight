@@ -12,8 +12,9 @@
 		return Math.floor(Math.random() * (fighterForce - minForce + 1)) + minForce;
 	}
 
-	let winner: string;
+	let winnerName: string;
 	let winnerUUID: string;
+	let loserUUID: string;
 	let isTie: boolean;
 
 	onMount(() => {
@@ -25,9 +26,10 @@
 				console.log('Le combat est terminé. Fighter 1 a gagné.');
 				fighter2.pv = 0;
 				fighter1.points += 3;
-				winner = fighter1.name;
+				winnerName = fighter1.name;
 				winnerUUID = fighter1.uuid;
-				console.log('winner:', winner);
+				loserUUID = fighter2.uuid;
+				console.log('winner:', winnerName);
 
 				clearInterval(intervalId);
 				return;
@@ -40,9 +42,10 @@
 				console.log('Le combat est terminé. Fighter 2 a gagné.');
 				fighter1.pv = 0;
 				fighter2.points += 3;
-				winner = fighter2.name;
+				winnerName = fighter2.name;
 				winnerUUID = fighter2.uuid;
-				console.log('winner:', winner);
+				loserUUID = fighter1.uuid;
+				console.log('winner:', winnerName);
 
 				clearInterval(intervalId);
 				return;
@@ -51,6 +54,7 @@
 			if (fighter1.pv === 0 && fighter2.pv === 0) {
 				console.log("Le combat est terminé. C'est une égalité !");
 				isTie = true;
+				winnerName = 'Tie';
 				fighter1.points += 1;
 				fighter2.points += 1;
 				clearInterval(intervalId);
@@ -61,14 +65,14 @@
 </script>
 
 <form method="POST">
-	{#if !winner}
+	{#if !winnerName}
 		<h1>
 			Fight between {fighter1.name} & {fighter2.name}!
 		</h1>
 	{:else if isTie}
 		<h1>The combat is finished. It's a tie!</h1>
 	{:else}
-		<h1>The combat is finished. The winner is {winner}!</h1>
+		<h1>The combat is finished. The winner is {winnerName}!</h1>
 		<button>New combat</button>
 	{/if}
 
@@ -84,9 +88,10 @@
 			</div>
 		{/each}
 	</div>
-	<!-- FIGHTER 1 DATA -->
-	<input type="text" name="winner" hidden value={winner} />
+
+	<input type="text" name="winnerName" hidden value={winnerName} />
 	<input type="text" name="winnerUUID" hidden value={winnerUUID} />
+	<input type="text" name="loserUUID" hidden value={loserUUID} />
 	<input type="text" name="uuid1" hidden value={fighter1.uuid} />
 	<input type="text" name="uuid2" hidden value={fighter2.uuid} />
 	<input type="text" name="fighter1Points" hidden value={fighter1.points} />

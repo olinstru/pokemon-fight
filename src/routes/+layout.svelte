@@ -7,7 +7,7 @@
 	<nav>
 		<a href="/">Home</a>
 		<a href="/creation">Create a fighter</a>
-		<a href="/list">Fighters ({squadSize})</a>
+		<a href="/leaderboard">Leaderboard ({squadSize})</a>
 		<!-- <a href="/combat">Combat</a> -->
 	</nav>
 </menu>

@@ -12,6 +12,10 @@
 		return Math.floor(Math.random() * (fighterForce - minForce + 1)) + minForce;
 	}
 
+	function navigateToHome() {
+		window.location.href = '/home'; // Replace with the actual URL of your home page
+	}
+
 	let winner: string;
 	let isTie: boolean;
 
@@ -67,13 +71,15 @@
 		<h1>The combat is finished. It's a tie!</h1>
 	{:else}
 		<h1>The combat is finished. The winner is {winner}!</h1>
-		<button>New combat</button>
+		<button>Rematch!</button>
 	{/if}
 
 	<div class="squad">
 		{#each pokemonFighters as fighter}
 			<div class="fighter">
-				<Fighter {fighter} />
+				<a href="leaderboard/{fighter.uuid}">
+					<Fighter {fighter} />
+				</a>
 				<div class="life-bar">
 					<div class="current-life" id="pokemonLife" style="width: {fighter.pv}px;">
 						{fighter.pv}
@@ -96,6 +102,12 @@
 		margin-top: 50px;
 		margin-bottom: 50px;
 	}
+
+	a {
+		text-decoration: none;
+		text-align: center;
+	}
+
 	.squad {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
@@ -124,12 +136,13 @@
 	}
 
 	button {
-		width: 170px;
+		width: 300px;
 		height: 40px;
 		font-size: 1.1rem;
 		background-color: orange;
 		display: block;
 		margin: 0 auto;
 		border-radius: 10px;
+		margin-bottom: 20px;
 	}
 </style>

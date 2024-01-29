@@ -1,17 +1,17 @@
-import type { FightersInSquad } from '$lib/types';
+import type { Leaderboard } from '$lib/types';
 import { readFileSync, writeFileSync } from 'fs';
 
-const squad: FightersInSquad[] = readLeaderboard();
+const leaderboard: Leaderboard[] = readLeaderboard();
 
-export function addToLeaderboard(pokemon: FightersInSquad) {
-	squad.push(pokemon);
+export function addToLeaderboard(combatData: Leaderboard) {
+	leaderboard.push(combatData);
 	saveLeaderboard();
 }
 
 export function readLeaderboard() {
 	try {
 		const data = readFileSync('generated/leaderboard.json', 'utf-8');
-		return JSON.parse(data) as FightersInSquad[];
+		return JSON.parse(data) as Leaderboard[];
 	} catch (e) {
 		console.log('No file');
 		return [];
@@ -19,5 +19,5 @@ export function readLeaderboard() {
 }
 
 export function saveLeaderboard() {
-	writeFileSync('./generated/squad.json', JSON.stringify(squad));
+	writeFileSync('./generated/leaderboard.json', JSON.stringify(leaderboard));
 }

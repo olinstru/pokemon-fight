@@ -12,7 +12,9 @@
 		return Math.floor(Math.random() * (fighterForce - minForce + 1)) + minForce;
 	}
 
-	let winner: any;
+	let winner: string;
+	let winnerUUID: string;
+	let isTie: boolean;
 
 	onMount(() => {
 		const intervalId = setInterval(() => {
@@ -22,7 +24,9 @@
 			} else {
 				console.log('Le combat est terminé. Fighter 1 a gagné.');
 				fighter2.pv = 0;
+				fighter1.points += 3;
 				winner = fighter1.name;
+				winnerUUID = fighter1.uuid;
 				console.log('winner:', winner);
 
 				clearInterval(intervalId);
@@ -35,9 +39,20 @@
 			} else {
 				console.log('Le combat est terminé. Fighter 2 a gagné.');
 				fighter1.pv = 0;
+				fighter2.points += 3;
 				winner = fighter2.name;
+				winnerUUID = fighter2.uuid;
 				console.log('winner:', winner);
 
+				clearInterval(intervalId);
+				return;
+			}
+
+			if (fighter1.pv === 0 && fighter2.pv === 0) {
+				console.log("Le combat est terminé. C'est une égalité !");
+				isTie = true;
+				fighter1.points += 1;
+				fighter2.points += 1;
 				clearInterval(intervalId);
 				return;
 			}
@@ -45,24 +60,38 @@
 	});
 </script>
 
-<h1 class="title">
+<form method="POST">
 	{#if !winner}
-		Fight between {fighter1.name} & {fighter2.name}!
+		<h1>
+			Fight between {fighter1.name} & {fighter2.name}!
+		</h1>
+	{:else if isTie}
+		<h1>The combat is finished. It's a tie!</h1>
 	{:else}
-		The winner is {winner}!
+		<h1>The combat is finished. The winner is {winner}!</h1>
+		<button>New combat</button>
 	{/if}
-</h1>
 
-<div class="squad">
-	{#each pokemonFighters as fighter}
-		<div class="fighter">
-			<Fighter {fighter} />
-			<div class="life-bar">
-				<div class="current-life" id="pokemonLife" style="width: {fighter.pv}px;">{fighter.pv}</div>
+	<div class="squad">
+		{#each pokemonFighters as fighter}
+			<div class="fighter">
+				<Fighter {fighter} />
+				<div class="life-bar">
+					<div class="current-life" id="pokemonLife" style="width: {fighter.pv}px;">
+						{fighter.pv}
+					</div>
+				</div>
 			</div>
-		</div>
-	{/each}
-</div>
+		{/each}
+	</div>
+	<!-- FIGHTER 1 DATA -->
+	<input type="text" name="winner" hidden value={winner} />
+	<input type="text" name="winnerUUID" hidden value={winnerUUID} />
+	<input type="text" name="uuid1" hidden value={fighter1.uuid} />
+	<input type="text" name="uuid2" hidden value={fighter2.uuid} />
+	<input type="text" name="fighter1Points" hidden value={fighter1.points} />
+	<input type="text" name="fighter2Points" hidden value={fighter2.points} />
+</form>
 
 <style>
 	h1 {
@@ -95,5 +124,15 @@
 		background-color: #4caf50; /* Green color for health */
 		transition: width 0.5s; /* Smooth transition for changing width */
 		text-align: center;
+	}
+
+	button {
+		width: 170px;
+		height: 40px;
+		font-size: 1.1rem;
+		background-color: orange;
+		display: block;
+		margin: 0 auto;
+		border-radius: 10px;
 	}
 </style>

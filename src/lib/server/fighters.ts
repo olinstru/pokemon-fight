@@ -8,6 +8,14 @@ export function addPokemonToSquad(pokemon: FightersInSquad) {
 	saveSquad();
 }
 
+export function updatePokemon(uuid: string, points: number) {
+	const pokemon = squad.find((pokemon) => pokemon.uuid === uuid);
+	if (pokemon) {
+		pokemon.points = points;
+		saveSquad();
+	}
+}
+
 export function deletePokemonFromSquad(uuid: string) {
 	squad = squad.filter((pokemon) => pokemon.uuid !== uuid);
 	saveSquad();

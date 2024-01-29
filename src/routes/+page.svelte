@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { invalidate } from '$app/navigation';
 	import Fighter from '$lib/components/Fighter.svelte';
 	import { onMount } from 'svelte';
 
@@ -18,6 +19,13 @@
 		const conditionsMet: boolean = selectedFighters.length === 2;
 		isFightButtonDisabled = !conditionsMet;
 		console.log(selectedFighters);
+	}
+
+	async function callDeleteEndpoint(uuid: string) {
+		const response = await fetch(`/${uuid}`, { method: 'DELETE' });
+		const newSquadSize = await response.json();
+		await invalidate('squad:all');
+		console.log(newSquadSize, response);
 	}
 
 	onMount(() => {
@@ -47,12 +55,18 @@
 		>
 			<Fighter {fighter} />
 		</a>
+		<button
+			style="font-size:24px"
+			on:click={() => {
+				callDeleteEndpoint(fighter.uuid);
+			}}><i class="fa fa-trash-o"></i></button
+		>
 	{/each}
 </div>
 
 <style>
 	.squad {
-		display: grid;
+		/* display: grid; */
 		grid-template-columns: 1fr 1fr 1fr;
 		grid-gap: 40px;
 	}

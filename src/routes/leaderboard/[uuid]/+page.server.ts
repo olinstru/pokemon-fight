@@ -1,14 +1,17 @@
 import { getFighterData, readPokemonSquad } from '$lib/server/fighters';
+import { readLeaderboard } from '$lib/server/leaderboard';
 
 export function load({ params }) {
-	// const uuid = url.searchParams.get('uuid');
-    const uuid = params.uuid;
+	const uuid = params.uuid;
 	const pokemon = getFighterData(uuid);
 	const squad = readPokemonSquad();
-	console.log(uuid);
+	const leaderboard = readLeaderboard();
+	console.log(leaderboard);
 
 	return {
+		uuid,
 		pokemon,
-		squad
+		squad,
+		leaderboard
 	};
 }

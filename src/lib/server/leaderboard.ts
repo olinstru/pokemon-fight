@@ -21,3 +21,15 @@ export function readLeaderboard() {
 export function saveLeaderboard() {
 	writeFileSync('./generated/leaderboard.json', JSON.stringify(leaderboard));
 }
+
+export function filterCombats(uuid: string, name: string) {
+    const fighterCombats = leaderboard.filter(combat => combat.uuid1 === uuid || combat.uuid2 === uuid);
+
+    const wonCombats = fighterCombats.filter(combat => combat.winner === name);
+    const lostCombats = fighterCombats.filter(combat => combat.winner !== name);
+
+    return {
+        wonCombats,
+        lostCombats
+    };
+}

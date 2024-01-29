@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { invalidate } from '$app/navigation';
 	import Fighter from '$lib/components/Fighter.svelte';
 	export let data;
 	$: fighter = data.squad;
+
 </script>
 
 <div>
@@ -17,7 +19,7 @@
 
 <style>
 	.squad {
-		display: grid;
+		/* display: grid; */
 		grid-template-columns: 1fr 1fr 1fr;
 		grid-gap: 40px;
 	}

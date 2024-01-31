@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { invalidate } from '$app/navigation';
-	import Fighter from '$lib/components/Fighter.svelte';
 	import { onMount } from 'svelte';
 
 	export let data;
@@ -9,6 +8,13 @@
 	let selectedFighters: any[];
 	$: selectedFighters = [];
 	let isFightButtonDisabled: boolean = true;
+
+	async function callDeleteEndpoint(uuid: string) {
+		const response = await fetch(`/${uuid}`, { method: 'DELETE' });
+		const newSquadSize = await response.json();
+		await invalidate('squad:all');
+		console.log(newSquadSize, response);
+	}
 
 	function selectFighters(fighter: any) {
 		if (selectedFighters.includes(fighter)) {
@@ -21,74 +27,97 @@
 		console.log(selectedFighters);
 	}
 
-	async function callDeleteEndpoint(uuid: string) {
-		const response = await fetch(`/${uuid}`, { method: 'DELETE' });
-		const newSquadSize = await response.json();
-		await invalidate('squad:all');
-		console.log(newSquadSize, response);
-	}
-
 	onMount(() => {
 		selectedFighters = [];
 		isFightButtonDisabled = true;
 	});
 </script>
 
-<h1>Pokemon Fight!</h1>
-
 <div class="top-section">
-	<h2>Choose 2 fighters:</h2>
+	<h1>Welcome to Pokemon Fight!</h1>
+	<h3>Choose 2 fighters:</h3>
 	{#if !isFightButtonDisabled}
-		<a
-			href="/fight?uuid1={selectedFighters[0]?.uuid}&uuid2={selectedFighters[1]?.uuid}"
-			class="startFightLink">Start fight!</a
+		<button
+			class="btn btn-danger btn-lg"
+			onclick="window.location.href='/fight?uuid1={selectedFighters[0]
+				?.uuid}&uuid2={selectedFighters[1]?.uuid}';"
 		>
+			Fight!
+		</button>
 	{/if}
 </div>
 
 <div class="squad">
 	{#each fighter as fighter (fighter.uuid)}
-		<a
-			href="/"
-			on:click={() => selectFighters(fighter)}
-			class:selected={selectedFighters.includes(fighter)}
-		>
-			<Fighter {fighter} />
-		</a>
-		<button
-			style="font-size:24px"
-			on:click={() => {
-				callDeleteEndpoint(fighter.uuid);
-			}}><i class="fa fa-trash-o"></i></button
-		>
+		<div class="fighterCard">
+			<div
+				class="card text-dark"
+				style="width: 22rem;"
+				class:selected={selectedFighters.includes(fighter)}
+			>
+				<img
+					class="card-img-top small"
+					style="max-width:50%; margin: auto;"
+					src={fighter.img}
+					alt={fighter.name}
+				/>
+				<div class="card-body">
+					<h5 class="card-title" style="text-align: center;">{fighter.name}</h5>
+					<p class="card-text" style="text-align: center;">
+						Health: {fighter.pv}
+					</p>
+					<p class="card-text" style="text-align: center;">
+						Force: {fighter.force}
+					</p>
+					<p class="card-text" style="text-align: center;">
+						Points: {fighter.points}
+					</p>
+					<button
+						class="btn btn-outline-secondary"
+						on:click={() => {
+							callDeleteEndpoint(fighter.uuid);
+						}}
+						><i class="fa fa-trash-o"></i>
+					</button>
+
+					<button
+						type="button"
+						class="btn btn-outline-success"
+						on:click={() => selectFighters(fighter)}>Select</button
+					>
+				</div>
+			</div>
+		</div>
 	{/each}
 </div>
 
 <style>
 	.squad {
-		/* display: grid; */
-		grid-template-columns: 1fr 1fr 1fr;
-		grid-gap: 40px;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-evenly;
+		gap: 50px;
+		margin: 0 20px;
+	}
+
+	.fighterCard {
+		display: flex;
+		justify-content: center;
+		text-align: center;
+	}
+
+	h1,
+	h3 {
+		margin-bottom: 30px;
 	}
 
 	.top-section {
+		text-align: center;
+		margin-top: 50px;
 		margin-bottom: 50px;
-		display: flex;
-		align-items: center;
-	}
-
-	a {
-		text-decoration: none;
-	}
-
-	.startFightLink {
-		margin-left: 40px;
-		font-weight: bold;
-		font-size: 1.2rem;
 	}
 
 	.selected {
-		background-color: lightgoldenrodyellow; /* Change the border color and width as needed */
-		border-radius: 10px;
+		background-color: #eeeeee;
 	}
 </style>

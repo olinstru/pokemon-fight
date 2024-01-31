@@ -17,12 +17,12 @@
 		<h1>{fighter.name}'s combat history</h1>
 
 		{#if filteredLeaderboard.length > 0}
-			<ul>
+			<ul class="combat-history">
 				{#each filteredLeaderboard as combat}
-					<li>
-						Winner: {combat.winner}<br />
-						Pokemon 1: {combat.uuid1}<br />
-						Pokemon 2: {combat.uuid2}<br />
+					<li class="combat-item">
+						<div class="winner-info">Winner: {combat.winner}</div>
+						<div class="pokemon-info">Pokemon 1: {combat.uuid1}</div>
+						<div class="pokemon-info">Pokemon 2: {combat.uuid2}</div>
 					</li>
 				{/each}
 			</ul>
@@ -31,3 +31,26 @@
 		{/if}
 	{/if}
 </div>
+
+<style>
+	.combat-history {
+		list-style-type: none;
+		padding: 0;
+	}
+
+	.combat-item {
+		border: 1px solid #ddd;
+		border-radius: 5px;
+		padding: 10px;
+		margin-bottom: 10px;
+	}
+
+	.winner-info {
+		font-weight: bold;
+	}
+
+	.pokemon-info {
+		margin-top: 5px;
+		color: #555;
+	}
+</style>

@@ -3,21 +3,25 @@
 	export let fighter: FightersInSquad;
 </script>
 
-<div class="fighter-card">
-	<p>Name: {fighter.name}</p>
-	<img src={fighter.img} alt={fighter.name} />
-	<p>PV: {fighter.pv}</p>
-	<p>Force: {fighter.force}</p>
-	<p>Points: {fighter.points}</p>
+<div class="col-sm">
+	<div class="card text-dark" style="width: 22rem;">
+		<img
+			class="card-img-top small"
+			style="max-width:50%; margin: auto;"
+			src={fighter.img}
+			alt={fighter.name}
+		/>
+		<div class="card-body">
+			<h5 class="card-title" style="text-align: center;">{fighter.name}</h5>
+			<p class="card-text" style="text-align: center;">
+				Health: {fighter.pv}
+			</p>
+			<p class="card-text" style="text-align: center;">
+				Force: {fighter.force}
+			</p>
+			<p class="card-text" style="text-align: center;">
+				Points: {fighter.points}
+			</p>
+		</div>
+	</div>
 </div>
-
-<style>
-	.fighter-card {
-		width: 500px;
-		text-align: center;
-		color: black;
-		font-weight: bold;
-		border-radius: 10px;
-		border: 3px solid lightgray;
-	}
-</style>

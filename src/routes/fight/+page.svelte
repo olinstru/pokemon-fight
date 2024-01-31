@@ -12,10 +12,6 @@
 		return Math.floor(Math.random() * (fighterForce - minForce + 1)) + minForce;
 	}
 
-	function navigateToHome() {
-		window.location.href = '/home'; // Replace with the actual URL of your home page
-	}
-
 	let winner: string;
 	let isTie: boolean;
 
@@ -63,16 +59,20 @@
 </script>
 
 <form method="POST">
-	{#if !winner}
-		<h1>
-			Fight between {fighter1.name} & {fighter2.name}!
-		</h1>
-	{:else if isTie}
-		<h1>The combat is finished. It's a tie!</h1>
-	{:else}
-		<h1>The combat is finished. The winner is {winner}!</h1>
-		<button>Rematch!</button>
-	{/if}
+	<div class="top-section">
+		{#if !winner}
+			<h1>
+				Fight between {fighter1.name} & {fighter2.name}!
+			</h1>
+		{:else if isTie}
+			<h1>The combat is finished. It's a tie! (+1 point each)</h1>
+			<h3>+1 point each</h3>
+		{:else}
+			<h1>The winner is {winner}! (+3 points)</h1>
+
+			<button class="btn btn-danger btn-lg"> Rematch! </button>
+		{/if}
+	</div>
 
 	<div class="squad">
 		{#each pokemonFighters as fighter}
@@ -97,6 +97,11 @@
 </form>
 
 <style>
+	.top-section {
+		text-align: center;
+		margin-top: 50px;
+		margin-bottom: 50px;
+	}
 	h1 {
 		text-align: center;
 		margin-top: 50px;
@@ -133,16 +138,5 @@
 		background-color: #4caf50; /* Green color for health */
 		transition: width 0.5s; /* Smooth transition for changing width */
 		text-align: center;
-	}
-
-	button {
-		width: 300px;
-		height: 40px;
-		font-size: 1.1rem;
-		background-color: orange;
-		display: block;
-		margin: 0 auto;
-		border-radius: 10px;
-		margin-bottom: 20px;
 	}
 </style>

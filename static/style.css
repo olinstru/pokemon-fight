@@ -1,3 +1,8 @@
 * {
     font-family: "Martian Mono", monospace;
 }
+
+.currentChampion {
+    color: green;
+    text-align: right;
+}

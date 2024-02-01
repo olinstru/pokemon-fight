@@ -1,10 +1,12 @@
 <script lang="ts">
-	import { invalidate } from '$app/navigation';
 	import Fighter from '$lib/components/Fighter.svelte';
 	export let data;
+	$: champion = data.champion;
 	$: fighter = data.squad.sort((a, b) => b.points - a.points);
 	$: podium = fighter.slice(0, 3);
 	$: fighters = fighter.slice(3);
+
+	$: console.log(champion?.name);
 </script>
 
 <div>
@@ -78,7 +80,8 @@
 
 	.placement {
 		text-align: center;
-		color: purple;
+		color: green;
 		font-weight: bold;
+		font-size: 1.2rem;
 	}
 </style>

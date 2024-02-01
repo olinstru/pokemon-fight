@@ -59,3 +59,17 @@ export function generateRandomForce() {
 	const maxForce = 50;
 	return Math.floor(Math.random() * (maxForce - minForce + 1)) + minForce;
 }
+
+export function getChampion() {
+	const sortedSquad = squad.slice().sort((a, b) => b.points - a.points);
+
+	if (sortedSquad.length === 0) {
+		// Handle the case where the squad is empty
+		return null;
+	}
+
+	const champion = sortedSquad[0]; // The Pokémon with the highest points is the champion
+
+	return champion;
+}
+

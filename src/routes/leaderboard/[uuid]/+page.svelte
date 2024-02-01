@@ -11,10 +11,12 @@
 
 <div>
 	{#if fighter}
-		<h1>{fighter.name}'s scoreboard</h1>
-		<Fighter {fighter} />
+		<h1>{fighter.name}'s Scoreboard</h1>
+		<div class="fighterCard">
+			<Fighter {fighter} />
+		</div>
 
-		<h1>{fighter.name}'s combat history</h1>
+		<h2>Combat History</h2>
 
 		{#if filteredLeaderboard.length > 0}
 			<ul class="combat-history">
@@ -33,6 +35,22 @@
 </div>
 
 <style>
+	h1,
+	h2 {
+		text-align: center;
+		margin-top: 50px;
+		margin-bottom: 50px;
+	}
+
+	.fighterCard {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		margin: 50px auto;
+		text-align: center; /* Added for better centering */
+	}
+
 	.combat-history {
 		list-style-type: none;
 		padding: 0;

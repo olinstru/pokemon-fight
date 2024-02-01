@@ -1,9 +1,10 @@
 <script>
 	export let data;
 	$: squadSize = data.squadSize;
+	$: champion = data.champion;
 </script>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light ">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<a class="navbar-brand" href="/">
 		<img
 			src="/pokeball.png"
@@ -27,6 +28,9 @@
 				<a class="nav-link" href="/leaderboard">Leaderboard ({squadSize})</a>
 			</li>
 		</ul>
+		<div class="currentChampion">
+			<p>🥇 Current Champion: {champion?.name} ({champion?.points} Points)</p>
+		</div>
 	</div>
 </nav>
 

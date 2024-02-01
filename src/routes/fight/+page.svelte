@@ -54,7 +54,7 @@
 				clearInterval(intervalId);
 				return;
 			}
-		}, 200);
+		}, 2000);
 	});
 </script>
 

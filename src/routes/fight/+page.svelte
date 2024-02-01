@@ -71,6 +71,9 @@
 			<h1>The winner is {winner}! (+3 points)</h1>
 
 			<button class="btn btn-danger btn-lg"> Rematch! </button>
+			<!-- <button class="btn btn-danger btn-lg" onclick="window.location.href='/home';">
+				Choose new fighters
+			</button> -->
 		{/if}
 	</div>
 

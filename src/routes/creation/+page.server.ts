@@ -17,7 +17,7 @@ export function load({ depends }) {
 export const actions = {
 	default: async (event) => {
 		const data = await event.request.formData();
-		const name = data.get('pokemonName')?.toString();
+		let name = data.get('pokemonName')?.toString();
 		const id = Number(data.get('pokemonId'));
 		const uuid = randomUUID();
 		const pv = generateRandomPV();
@@ -26,6 +26,9 @@ export const actions = {
 		const img = getPokemonData(id);
 
 		if (name) {
+			name = name.charAt(0).toUpperCase() + name.slice(1);
+			console.log("coucou")
+
 			addPokemonToSquad({
 				name: name,
 				id: id,
